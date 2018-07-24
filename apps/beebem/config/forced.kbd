@@ -1,0 +1,13 @@
+# forced.kbd
+#
+# This kbd mapping file is loaded AFTER a matching disc image mapping file (if
+# one is found). So these options override EVERYTHING! Use with care!
+
+
+# One possible use for this would be to force BeebEm to NEVER start up with
+# sound (no matter what old mapping files say)!
+#SET VOLUME=0
+
+# Disable the hardware cursor always.
+#SET DISABLE_CURSOR=1
+#

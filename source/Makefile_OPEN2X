@@ -1,0 +1,1842 @@
+#arm-open2x-linux-
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1
+
+#INCLUDES = -I. -I/usr/local/open2x/include/c++ `sdl-open2x-config --cflags`
+#INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1 `arm-open2x-linux-sdl-config --cflags`
+INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1 `/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/sdl-config --cflags`
+
+
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/usr/local/open2x/include/linux -I/usr/local/open2x/include/c++
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux
+
+
+#CC = open2x-gcc -O6 -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops
+#CC = arm-open2x-linux-gcc -O6 -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops
+CC = /opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/arm-open2x-linux-gcc -O6 -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops
+
+
+CFLAGS = $(INCLUDES) $(SDINCLUDES) -Wall -g -DBEEB_DOTIME $(RESOURCES) -DGP2X=1 -DSOUNDSUPPORT
+# -DPRODUCTION
+# -DEG_DEBUG
+
+RESOURCES=-DROMS_DIR=\"/mnt/sd/beebem/\" -DRC_DIR=\"/mnt/sd/beebem/\" -DOS_DIR=\"/mnt/sd/beebem/\" -DDEFAULT_DISC=\"S:80:/mnt/sd/beebem/Zalaga.ssd\"  -DVERSION=\"0.6\"
+
+#LINKFLAGS = -lstdc++ `sdl-open2x-config --libs` -lm -s --static
+#LINKFLAGS = -lstdc++ `arm-open2x-linux-sdl-config --libs` -lm -s --static
+LINKFLAGS = -lstdc++ `/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/sdl-config  --libs` -s --static
+
+LIBS =
+LIBFILES = gui/libeg.a
+
+SRCS =  6502core.cc beebmem.cc beebwin.cc disc8271.cc main.cc mode7font.c\
+        sysvia.cc uservia.cc via.cc video.cc beebsound.cc atodconv.cc sdl.cc \
+        keyboard.cc beebconfig.cc beebem_pages.cc screensaver.c stick.cc \
+        virtualkeyboard.cc button.c fileselector.cc progressdialog.cc \
+        keyboardmapper.cc messagebox.cc uefstate.cc listbox.cc fileselector_saveas.cc
+
+OBJS =  6502core.o beebmem.o beebwin.o disc8271.o main.o  mode7font.o\
+        sysvia.o uservia.o via.o video.o beebsound.o atodconv.o sdl.o \
+        keyboard.o beebconfig.o beebem_pages.o screensaver.o stick.o \
+        virtualkeyboard.o button.o fileselector.o progressdialog.o \
+        keyboardmapper.o messagebox.o uefstate.o listbox.o fileselector_saveas.o
+
+
+.cc.o:
+	$(CC) -c $(CFLAGS) $<
+
+beebem: $(OBJS) $(LIBFILES)
+	$(CC) -o beebem $(OBJS) $(LIBFILES) $(LIBS) $(LINKFLAGS)
+
+gui/libeg.a:
+	(cd gui; make)
+
+depend:
+	makedepend -- $(DEPINCLUDES) $(INCLUDES) $(CFLAGS) $(LINKFLAGS) -- $(SRCS)
+
+clean:
+	rm -f $(OBJS) beebem
+
+reallyclean:
+	make clean
+	(cd gui; make clean)
+
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+6502core.o: /usr/include/stdio.h /usr/include/features.h
+6502core.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+6502core.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+6502core.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+6502core.o: /usr/include/libio.h /usr/include/_G_config.h
+6502core.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+6502core.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+6502core.o: /usr/include/bits/sys_errlist.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+6502core.o: /usr/include/ctype.h /usr/include/endian.h
+6502core.o: /usr/include/bits/endian.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+6502core.o: /usr/include/time.h /usr/include/bits/time.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+6502core.o: /usr/include/string.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+6502core.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+6502core.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+6502core.o: /usr/include/bits/posix2_lim.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+6502core.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+6502core.o: /usr/include/stdlib.h /usr/include/sys/types.h
+6502core.o: /usr/include/sys/select.h /usr/include/bits/select.h
+6502core.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+6502core.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h 6502core.h
+6502core.o: port.h beebwin.h sdl.h beebmem.h beebsound.h disc8271.h sysvia.h
+6502core.o: via.h uservia.h video.h atodconv.h beebconfig.h messagebox.h
+6502core.o: ./gui/types.h ./gui/widget.h ./gui/window.h ./gui/box.h
+6502core.o: ./gui/sdl.h ./gui/label.h ./gui/button.h ./gui/widget_private.h
+6502core.o: uefstate.h messages.h
+beebmem.o: /usr/include/ctype.h /usr/include/features.h
+beebmem.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+beebmem.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+beebmem.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+beebmem.o: /usr/include/endian.h /usr/include/bits/endian.h
+beebmem.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+beebmem.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+beebmem.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+beebmem.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+beebmem.o: /usr/include/sys/types.h /usr/include/time.h
+beebmem.o: /usr/include/bits/time.h /usr/include/sys/select.h
+beebmem.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+beebmem.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+beebmem.o: /usr/include/alloca.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+beebmem.o: /usr/include/string.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+beebmem.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+beebmem.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+beebmem.o: /usr/include/bits/posix2_lim.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+beebmem.o: 6502core.h port.h beebwin.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+beebmem.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+beebmem.o: disc8271.h main.h sysvia.h via.h uservia.h video.h atodconv.h
+beebmem.o: beebconfig_data.h beebconfig.h messagebox.h ./gui/types.h
+beebmem.o: ./gui/widget.h ./gui/window.h ./gui/box.h ./gui/sdl.h
+beebmem.o: ./gui/label.h ./gui/button.h ./gui/widget_private.h uefstate.h
+beebmem.o: messages.h
+beebwin.o: /usr/include/string.h /usr/include/features.h
+beebwin.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+beebwin.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+beebwin.o: /usr/include/stdio.h /usr/include/bits/types.h
+beebwin.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+beebwin.o: /usr/include/_G_config.h /usr/include/wchar.h
+beebwin.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+beebwin.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+beebwin.o: 6502core.h port.h /usr/include/limits.h
+beebwin.o: /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h
+beebwin.o: /usr/include/linux/limits.h /usr/include/bits/posix2_lim.h
+beebwin.o: beebwin.h /usr/include/stdlib.h /usr/include/sys/types.h
+beebwin.o: /usr/include/time.h /usr/include/bits/time.h /usr/include/endian.h
+beebwin.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+beebwin.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+beebwin.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+beebwin.o: /usr/include/alloca.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+beebwin.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+beebwin.o: beebmem.h beebsound.h disc8271.h sysvia.h via.h uservia.h video.h
+beebwin.o: beebconfig.h beebconfig_data.h virtualkeyboard.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+disc8271.o: /usr/include/ctype.h /usr/include/features.h
+disc8271.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+disc8271.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+disc8271.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+disc8271.o: /usr/include/endian.h /usr/include/bits/endian.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+disc8271.o: /usr/include/time.h /usr/include/bits/time.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+disc8271.o: /usr/include/string.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+disc8271.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+disc8271.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+disc8271.o: /usr/include/bits/posix2_lim.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+disc8271.o: /usr/include/stdio.h /usr/include/libio.h
+disc8271.o: /usr/include/_G_config.h /usr/include/wchar.h
+disc8271.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+disc8271.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/fstream
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/fstream.tcc
+disc8271.o: /usr/include/stdlib.h /usr/include/sys/types.h
+disc8271.o: /usr/include/sys/select.h /usr/include/bits/select.h
+disc8271.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+disc8271.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h 6502core.h
+disc8271.o: port.h beebwin.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+disc8271.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+disc8271.o: disc8271.h uefstate.h beebconfig_data.h beebconfig.h messages.h
+disc8271.o: main.h messagebox.h ./gui/types.h ./gui/widget.h ./gui/window.h
+disc8271.o: ./gui/box.h ./gui/sdl.h ./gui/label.h ./gui/button.h
+disc8271.o: ./gui/widget_private.h
+main.o: /usr/include/signal.h /usr/include/features.h
+main.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+main.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+main.o: /usr/include/bits/sigset.h /usr/include/bits/types.h
+main.o: /usr/include/bits/typesizes.h /usr/include/bits/signum.h
+main.o: /usr/include/time.h /usr/include/bits/time.h
+main.o: /usr/include/bits/siginfo.h /usr/include/bits/sigaction.h
+main.o: /usr/include/bits/sigcontext.h /usr/include/asm/sigcontext.h
+main.o: /usr/include/asm-i386/sigcontext.h /usr/include/bits/sigstack.h
+main.o: /usr/include/bits/pthreadtypes.h /usr/include/bits/sigthread.h
+main.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+main.o: /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h
+main.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+main.o: /usr/include/stdlib.h /usr/include/sys/types.h /usr/include/endian.h
+main.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+main.o: /usr/include/bits/select.h /usr/include/sys/sysmacros.h
+main.o: /usr/include/alloca.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+main.o: /usr/include/ctype.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+main.o: /usr/include/string.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+main.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+main.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+main.o: /usr/include/bits/posix2_lim.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+main.o: 6502core.h port.h beebwin.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+main.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+main.o: beebmem.h beebsound.h sysvia.h via.h uservia.h disc8271.h video.h
+main.o: keyboard.h beebconfig.h beebconfig_data.h virtualkeyboard.h button.h
+main.o: messagebox.h ./gui/types.h ./gui/widget.h ./gui/window.h ./gui/box.h
+main.o: ./gui/sdl.h ./gui/label.h ./gui/button.h ./gui/widget_private.h
+main.o: ./gui/gui.h ./gui/tickbox.h ./gui/radiogroup.h ./gui/radiobutton.h
+main.o: ./gui/slidebar.h ./gui/togglebutton.h ./gui/progressbar.h
+main.o: ./gui/image.h ./gui/graphics.h ./gui/functions.h ./gui/line.h
+main.o: ./gui/log.h ./gui/graphics_colors.h ./gui/graphics_font.h
+main.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h beebem_pages.h
+main.o: keyboardmapper.h uefstate.h listbox.h fileselector.h stick.h header
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+sysvia.o: /usr/include/ctype.h /usr/include/features.h
+sysvia.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+sysvia.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+sysvia.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+sysvia.o: /usr/include/endian.h /usr/include/bits/endian.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+sysvia.o: /usr/include/time.h /usr/include/bits/time.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+sysvia.o: /usr/include/string.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+sysvia.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+sysvia.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+sysvia.o: /usr/include/bits/posix2_lim.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+sysvia.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+sysvia.o: /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h
+sysvia.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+sysvia.o: 6502core.h port.h beebwin.h /usr/include/stdlib.h
+sysvia.o: /usr/include/sys/types.h /usr/include/sys/select.h
+sysvia.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+sysvia.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+sysvia.o: /usr/include/alloca.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+sysvia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+sysvia.o: beebsound.h sysvia.h via.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+uservia.o: /usr/include/ctype.h /usr/include/features.h
+uservia.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+uservia.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+uservia.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+uservia.o: /usr/include/endian.h /usr/include/bits/endian.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+uservia.o: /usr/include/time.h /usr/include/bits/time.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+uservia.o: /usr/include/string.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+uservia.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+uservia.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+uservia.o: /usr/include/bits/posix2_lim.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+uservia.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+uservia.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+uservia.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+uservia.o: /usr/include/bits/sys_errlist.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+uservia.o: 6502core.h port.h beebwin.h /usr/include/stdlib.h
+uservia.o: /usr/include/sys/types.h /usr/include/sys/select.h
+uservia.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+uservia.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+uservia.o: /usr/include/alloca.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+uservia.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+uservia.o: uservia.h via.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+via.o: /usr/include/ctype.h /usr/include/features.h /usr/include/sys/cdefs.h
+via.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+via.o: /usr/include/gnu/stubs-32.h /usr/include/bits/types.h
+via.o: /usr/include/bits/typesizes.h /usr/include/endian.h
+via.o: /usr/include/bits/endian.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+via.o: /usr/include/time.h /usr/include/bits/time.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+via.o: /usr/include/string.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+via.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+via.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+via.o: /usr/include/bits/posix2_lim.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+via.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+via.o: /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h
+via.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+via.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+via.o: via.h uefstate.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+video.o: /usr/include/ctype.h /usr/include/features.h
+video.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+video.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+video.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+video.o: /usr/include/endian.h /usr/include/bits/endian.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+video.o: /usr/include/time.h /usr/include/bits/time.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+video.o: /usr/include/string.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+video.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+video.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+video.o: /usr/include/bits/posix2_lim.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+video.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+video.o: /usr/include/wchar.h /usr/include/bits/wchar.h /usr/include/gconv.h
+video.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+video.o: /usr/include/stdlib.h /usr/include/sys/types.h
+video.o: /usr/include/sys/select.h /usr/include/bits/select.h
+video.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+video.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+video.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+video.o: 6502core.h port.h beebwin.h sdl.h beebmem.h main.h mode7font.h
+video.o: sysvia.h via.h video.h beebconfig.h beebconfig_data.h uefstate.h
+video.o: virtualkeyboard.h /usr/include/sys/times.h
+beebsound.o: beebsound.h /usr/include/stdio.h /usr/include/features.h
+beebsound.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+beebsound.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+beebsound.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+beebsound.o: /usr/include/libio.h /usr/include/_G_config.h
+beebsound.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+beebsound.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+beebsound.o: /usr/include/bits/sys_errlist.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+beebsound.o: /usr/include/ctype.h /usr/include/endian.h
+beebsound.o: /usr/include/bits/endian.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+beebsound.o: /usr/include/time.h /usr/include/bits/time.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+beebsound.o: /usr/include/string.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+beebsound.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+beebsound.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+beebsound.o: /usr/include/bits/posix2_lim.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/fstream
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/fstream.tcc
+beebsound.o: /usr/include/math.h /usr/include/bits/huge_val.h
+beebsound.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+beebsound.o: /usr/include/errno.h /usr/include/bits/errno.h
+beebsound.o: /usr/include/linux/errno.h /usr/include/asm/errno.h
+beebsound.o: /usr/include/asm-i386/errno.h /usr/include/asm-generic/errno.h
+beebsound.o: /usr/include/asm-generic/errno-base.h /usr/include/stdlib.h
+beebsound.o: /usr/include/sys/types.h /usr/include/sys/select.h
+beebsound.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+beebsound.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+beebsound.o: /usr/include/alloca.h 6502core.h port.h beebwin.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+beebsound.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+beebsound.o: sdl.h beebmem.h uefstate.h main.h
+atodconv.o: /usr/include/stdio.h /usr/include/features.h
+atodconv.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+atodconv.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+atodconv.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+atodconv.o: /usr/include/libio.h /usr/include/_G_config.h
+atodconv.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+atodconv.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+atodconv.o: /usr/include/bits/sys_errlist.h 6502core.h port.h
+atodconv.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+atodconv.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+atodconv.o: /usr/include/bits/posix2_lim.h beebwin.h /usr/include/string.h
+atodconv.o: /usr/include/stdlib.h /usr/include/sys/types.h
+atodconv.o: /usr/include/time.h /usr/include/bits/time.h
+atodconv.o: /usr/include/endian.h /usr/include/bits/endian.h
+atodconv.o: /usr/include/sys/select.h /usr/include/bits/select.h
+atodconv.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+atodconv.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+atodconv.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+atodconv.o: atodconv.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+sdl.o: /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h
+sdl.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+sdl.o: /usr/include/gnu/stubs-32.h /usr/include/bits/types.h
+sdl.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+sdl.o: /usr/include/_G_config.h /usr/include/wchar.h
+sdl.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+sdl.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+sdl.o: /usr/include/sys/mman.h /usr/include/bits/mman.h
+sdl.o: /usr/include/sys/stat.h /usr/include/time.h /usr/include/bits/time.h
+sdl.o: /usr/include/bits/stat.h /usr/include/fcntl.h
+sdl.o: /usr/include/bits/fcntl.h /usr/include/sys/types.h
+sdl.o: /usr/include/endian.h /usr/include/bits/endian.h
+sdl.o: /usr/include/sys/select.h /usr/include/bits/select.h
+sdl.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+sdl.o: /usr/include/bits/pthreadtypes.h /usr/include/sys/ioctl.h
+sdl.o: /usr/include/bits/ioctls.h /usr/include/asm/ioctls.h
+sdl.o: /usr/include/asm-i386/ioctls.h /usr/include/asm/ioctl.h
+sdl.o: /usr/include/asm-i386/ioctl.h /usr/include/asm-generic/ioctl.h
+sdl.o: /usr/include/bits/ioctl-types.h /usr/include/sys/ttydefaults.h
+sdl.o: /usr/include/sys/soundcard.h /usr/include/linux/soundcard.h
+sdl.o: /usr/include/linux/ioctl.h /usr/include/linux/patchkey.h
+sdl.o: /usr/include/sys/time.h /usr/include/sys/resource.h
+sdl.o: /usr/include/bits/resource.h /usr/include/unistd.h
+sdl.o: /usr/include/bits/posix_opt.h /usr/include/bits/confname.h
+sdl.o: /usr/include/getopt.h /usr/include/string.h /usr/include/stdlib.h
+sdl.o: /usr/include/alloca.h beebconfig.h beebconfig_data.h
+keyboard.o: /usr/include/string.h /usr/include/features.h
+keyboard.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+keyboard.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+keyboard.o: /usr/include/ctype.h /usr/include/bits/types.h
+keyboard.o: /usr/include/bits/typesizes.h /usr/include/endian.h
+keyboard.o: /usr/include/bits/endian.h /usr/include/stdlib.h
+keyboard.o: /usr/include/sys/types.h /usr/include/time.h
+keyboard.o: /usr/include/bits/time.h /usr/include/sys/select.h
+keyboard.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+keyboard.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+keyboard.o: /usr/include/alloca.h keyboard.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+keyboard.o: /usr/include/stdio.h /usr/include/libio.h
+keyboard.o: /usr/include/_G_config.h /usr/include/wchar.h
+keyboard.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+keyboard.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+keyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+keyboard.o: beebconfig.h beebconfig_data.h sysvia.h via.h main.h beebwin.h
+keyboard.o: port.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+keyboard.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+keyboard.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h video.h
+beebconfig.o: beebconfig.h sysvia.h via.h /usr/include/stdio.h
+beebconfig.o: /usr/include/features.h /usr/include/sys/cdefs.h
+beebconfig.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+beebconfig.o: /usr/include/gnu/stubs-32.h /usr/include/bits/types.h
+beebconfig.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+beebconfig.o: /usr/include/_G_config.h /usr/include/wchar.h
+beebconfig.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+beebconfig.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+beebconfig.o: main.h beebwin.h /usr/include/string.h /usr/include/stdlib.h
+beebconfig.o: /usr/include/sys/types.h /usr/include/time.h
+beebconfig.o: /usr/include/bits/time.h /usr/include/endian.h
+beebconfig.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+beebconfig.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+beebconfig.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+beebconfig.o: /usr/include/alloca.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+beebconfig.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+beebconfig.o: port.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+beebconfig.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+beebconfig.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h video.h
+beebconfig.o: keyboard.h messagebox.h ./gui/types.h ./gui/widget.h
+beebconfig.o: ./gui/window.h ./gui/box.h ./gui/sdl.h ./gui/label.h
+beebconfig.o: ./gui/button.h ./gui/widget_private.h messages.h stick.h
+beebconfig.o: /usr/include/ctype.h /usr/include/unistd.h
+beebconfig.o: /usr/include/bits/posix_opt.h /usr/include/bits/confname.h
+beebconfig.o: /usr/include/getopt.h ./gui/gui.h ./gui/tickbox.h
+beebconfig.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+beebconfig.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+beebconfig.o: ./gui/graphics.h ./gui/functions.h ./gui/line.h ./gui/log.h
+beebconfig.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+beebconfig.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+beebem_pages.o: /usr/include/string.h /usr/include/features.h
+beebem_pages.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+beebem_pages.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+beebem_pages.o: /usr/include/ctype.h /usr/include/bits/types.h
+beebem_pages.o: /usr/include/bits/typesizes.h /usr/include/endian.h
+beebem_pages.o: /usr/include/bits/endian.h /usr/include/stdlib.h
+beebem_pages.o: /usr/include/sys/types.h /usr/include/time.h
+beebem_pages.o: /usr/include/bits/time.h /usr/include/sys/select.h
+beebem_pages.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+beebem_pages.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+beebem_pages.o: /usr/include/alloca.h /usr/include/unistd.h
+beebem_pages.o: /usr/include/bits/posix_opt.h /usr/include/bits/confname.h
+beebem_pages.o: /usr/include/getopt.h /usr/include/stdint.h
+beebem_pages.o: /usr/include/bits/wchar.h /usr/include/stdio.h
+beebem_pages.o: /usr/include/libio.h /usr/include/_G_config.h
+beebem_pages.o: /usr/include/wchar.h /usr/include/gconv.h
+beebem_pages.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+beebem_pages.o: ./gui/log.h ./gui/line.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+beebem_pages.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+beebem_pages.o: messagebox.h ./gui/types.h ./gui/widget.h ./gui/window.h
+beebem_pages.o: ./gui/box.h ./gui/sdl.h ./gui/label.h ./gui/button.h
+beebem_pages.o: ./gui/widget_private.h sysvia.h via.h main.h beebwin.h port.h
+beebem_pages.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+beebem_pages.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+beebem_pages.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h video.h
+beebem_pages.o: beebconfig.h beebem_pages.h ./gui/gui.h ./gui/tickbox.h
+beebem_pages.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+beebem_pages.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+beebem_pages.o: ./gui/graphics.h ./gui/functions.h ./gui/graphics_colors.h
+beebem_pages.o: ./gui/graphics_font.h ./gui/graphics_font.h
+beebem_pages.o: ./gui/graphics_fontmap.h keyboard.h button.h 6502core.h
+beebem_pages.o: keyboardmapper.h fileselector.h listbox.h screensaver.h
+beebem_pages.o: uefstate.h stick.h messages.h
+screensaver.o: ./gui/graphics.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+screensaver.o: /usr/include/stdio.h /usr/include/features.h
+screensaver.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+screensaver.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+screensaver.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+screensaver.o: /usr/include/libio.h /usr/include/_G_config.h
+screensaver.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+screensaver.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+screensaver.o: /usr/include/bits/sys_errlist.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+screensaver.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+screensaver.o: ./gui/types.h ./gui/functions.h /usr/include/stdlib.h
+screensaver.o: /usr/include/sys/types.h /usr/include/time.h
+screensaver.o: /usr/include/bits/time.h /usr/include/endian.h
+screensaver.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+screensaver.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+screensaver.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+screensaver.o: /usr/include/alloca.h /usr/include/string.h
+screensaver.o: /usr/include/ctype.h ./gui/line.h ./gui/log.h
+screensaver.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+screensaver.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+screensaver.o: /usr/include/math.h /usr/include/bits/huge_val.h
+screensaver.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
+stick.o: stick.h sdl.h /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+stick.o: /usr/include/stdio.h /usr/include/features.h
+stick.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+stick.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+stick.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+stick.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+stick.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+stick.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+stick.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+stick.o: keyboard.h beebconfig.h beebconfig_data.h
+virtualkeyboard.o: beebconfig.h beebconfig_data.h sysvia.h via.h
+virtualkeyboard.o: /usr/include/stdio.h /usr/include/features.h
+virtualkeyboard.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+virtualkeyboard.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+virtualkeyboard.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+virtualkeyboard.o: /usr/include/libio.h /usr/include/_G_config.h
+virtualkeyboard.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+virtualkeyboard.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+virtualkeyboard.o: /usr/include/bits/sys_errlist.h main.h beebwin.h
+virtualkeyboard.o: /usr/include/string.h /usr/include/stdlib.h
+virtualkeyboard.o: /usr/include/sys/types.h /usr/include/time.h
+virtualkeyboard.o: /usr/include/bits/time.h /usr/include/endian.h
+virtualkeyboard.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+virtualkeyboard.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+virtualkeyboard.o: /usr/include/sys/sysmacros.h
+virtualkeyboard.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+virtualkeyboard.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+virtualkeyboard.o: port.h /usr/include/limits.h
+virtualkeyboard.o: /usr/include/bits/posix1_lim.h
+virtualkeyboard.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+virtualkeyboard.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h 6502core.h
+virtualkeyboard.o: virtualkeyboard.h keyboard.h
+button.o: /usr/include/string.h /usr/include/features.h
+button.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+button.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+button.o: /usr/include/stdint.h /usr/include/bits/wchar.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+button.o: /usr/include/stdio.h /usr/include/bits/types.h
+button.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+button.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/gconv.h
+button.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+button.o: button.h keyboard.h
+fileselector.o: /usr/include/sys/types.h /usr/include/features.h
+fileselector.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+fileselector.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+fileselector.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+fileselector.o: /usr/include/time.h /usr/include/bits/time.h
+fileselector.o: /usr/include/endian.h /usr/include/bits/endian.h
+fileselector.o: /usr/include/sys/select.h /usr/include/bits/select.h
+fileselector.o: /usr/include/bits/sigset.h /usr/include/sys/sysmacros.h
+fileselector.o: /usr/include/bits/pthreadtypes.h /usr/include/dirent.h
+fileselector.o: /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h
+fileselector.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+fileselector.o: fileselector.h /usr/include/stdio.h /usr/include/libio.h
+fileselector.o: /usr/include/_G_config.h /usr/include/wchar.h
+fileselector.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+fileselector.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+fileselector.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+fileselector.o: /usr/include/string.h listbox.h ./gui/gui.h ./gui/types.h
+fileselector.o: ./gui/window.h ./gui/widget.h ./gui/box.h ./gui/sdl.h
+fileselector.o: ./gui/label.h ./gui/button.h ./gui/tickbox.h
+fileselector.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+fileselector.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+fileselector.o: ./gui/graphics.h ./gui/functions.h /usr/include/stdlib.h
+fileselector.o: /usr/include/alloca.h /usr/include/ctype.h ./gui/line.h
+fileselector.o: ./gui/log.h ./gui/graphics_colors.h ./gui/graphics_font.h
+fileselector.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h messagebox.h
+fileselector.o: ./gui/widget_private.h progressdialog.h
+fileselector.o: /usr/include/pthread.h /usr/include/sched.h
+fileselector.o: /usr/include/bits/sched.h /usr/include/signal.h
+fileselector.o: /usr/include/bits/signum.h /usr/include/bits/siginfo.h
+fileselector.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+fileselector.o: /usr/include/asm/sigcontext.h
+fileselector.o: /usr/include/asm-i386/sigcontext.h
+fileselector.o: /usr/include/bits/sigstack.h /usr/include/bits/sigthread.h
+fileselector.o: /usr/include/bits/setjmp.h fileselector_saveas.h beebconfig.h
+fileselector.o: messages.h
+progressdialog.o: progressdialog.h /usr/include/stdio.h
+progressdialog.o: /usr/include/features.h /usr/include/sys/cdefs.h
+progressdialog.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+progressdialog.o: /usr/include/gnu/stubs-32.h /usr/include/bits/types.h
+progressdialog.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+progressdialog.o: /usr/include/_G_config.h /usr/include/wchar.h
+progressdialog.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+progressdialog.o: /usr/include/bits/stdio_lim.h
+progressdialog.o: /usr/include/bits/sys_errlist.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+progressdialog.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+progressdialog.o: /usr/include/string.h /usr/include/pthread.h
+progressdialog.o: /usr/include/sched.h /usr/include/time.h
+progressdialog.o: /usr/include/bits/time.h /usr/include/bits/sched.h
+progressdialog.o: /usr/include/signal.h /usr/include/bits/sigset.h
+progressdialog.o: /usr/include/bits/signum.h /usr/include/bits/siginfo.h
+progressdialog.o: /usr/include/bits/sigaction.h
+progressdialog.o: /usr/include/bits/sigcontext.h
+progressdialog.o: /usr/include/asm/sigcontext.h
+progressdialog.o: /usr/include/asm-i386/sigcontext.h
+progressdialog.o: /usr/include/bits/sigstack.h
+progressdialog.o: /usr/include/bits/pthreadtypes.h
+progressdialog.o: /usr/include/bits/sigthread.h /usr/include/bits/setjmp.h
+progressdialog.o: ./gui/gui.h ./gui/types.h ./gui/window.h ./gui/widget.h
+progressdialog.o: ./gui/box.h ./gui/sdl.h ./gui/label.h ./gui/button.h
+progressdialog.o: ./gui/tickbox.h ./gui/radiogroup.h ./gui/radiobutton.h
+progressdialog.o: ./gui/slidebar.h ./gui/togglebutton.h ./gui/progressbar.h
+progressdialog.o: ./gui/image.h ./gui/graphics.h ./gui/functions.h
+progressdialog.o: /usr/include/stdlib.h /usr/include/sys/types.h
+progressdialog.o: /usr/include/endian.h /usr/include/bits/endian.h
+progressdialog.o: /usr/include/sys/select.h /usr/include/bits/select.h
+progressdialog.o: /usr/include/sys/sysmacros.h /usr/include/alloca.h
+progressdialog.o: /usr/include/ctype.h ./gui/line.h ./gui/log.h
+progressdialog.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+progressdialog.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+keyboardmapper.o: /usr/include/string.h /usr/include/features.h
+keyboardmapper.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+keyboardmapper.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+keyboardmapper.o: /usr/include/ctype.h /usr/include/bits/types.h
+keyboardmapper.o: /usr/include/bits/typesizes.h /usr/include/endian.h
+keyboardmapper.o: /usr/include/bits/endian.h /usr/include/stdlib.h
+keyboardmapper.o: /usr/include/sys/types.h /usr/include/time.h
+keyboardmapper.o: /usr/include/bits/time.h /usr/include/sys/select.h
+keyboardmapper.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+keyboardmapper.o: /usr/include/sys/sysmacros.h
+keyboardmapper.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+keyboardmapper.o: /usr/include/unistd.h /usr/include/bits/posix_opt.h
+keyboardmapper.o: /usr/include/bits/confname.h /usr/include/getopt.h
+keyboardmapper.o: /usr/include/stdint.h /usr/include/bits/wchar.h
+keyboardmapper.o: /usr/include/stdio.h /usr/include/libio.h
+keyboardmapper.o: /usr/include/_G_config.h /usr/include/wchar.h
+keyboardmapper.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+keyboardmapper.o: /usr/include/bits/sys_errlist.h ./gui/log.h ./gui/line.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+keyboardmapper.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+keyboardmapper.o: sysvia.h via.h main.h beebwin.h port.h
+keyboardmapper.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+keyboardmapper.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+keyboardmapper.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h video.h
+keyboardmapper.o: beebconfig.h beebconfig_data.h beebem_pages.h ./gui/gui.h
+keyboardmapper.o: ./gui/types.h ./gui/window.h ./gui/widget.h ./gui/box.h
+keyboardmapper.o: ./gui/sdl.h ./gui/label.h ./gui/button.h ./gui/tickbox.h
+keyboardmapper.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+keyboardmapper.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+keyboardmapper.o: ./gui/graphics.h ./gui/functions.h ./gui/graphics_colors.h
+keyboardmapper.o: ./gui/graphics_font.h ./gui/graphics_font.h
+keyboardmapper.o: ./gui/graphics_fontmap.h keyboard.h button.h 6502core.h
+keyboardmapper.o: screensaver.h stick.h
+messagebox.o: /usr/include/stdint.h /usr/include/features.h
+messagebox.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+messagebox.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+messagebox.o: /usr/include/bits/wchar.h ./gui/log.h ./gui/line.h
+messagebox.o: /usr/include/stdio.h /usr/include/bits/types.h
+messagebox.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+messagebox.o: /usr/include/_G_config.h /usr/include/wchar.h
+messagebox.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+messagebox.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+messagebox.o: /usr/include/sys/types.h /usr/include/time.h
+messagebox.o: /usr/include/bits/time.h /usr/include/endian.h
+messagebox.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+messagebox.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+messagebox.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+messagebox.o: /usr/include/alloca.h /usr/include/string.h main.h beebwin.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+messagebox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+messagebox.o: port.h /usr/include/limits.h /usr/include/bits/posix1_lim.h
+messagebox.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+messagebox.o: /usr/include/bits/posix2_lim.h sdl.h messagebox.h ./gui/types.h
+messagebox.o: ./gui/widget.h ./gui/window.h ./gui/box.h ./gui/sdl.h
+messagebox.o: ./gui/label.h ./gui/button.h ./gui/widget_private.h
+messagebox.o: messagebox_private.h button.h ./gui/gui.h ./gui/tickbox.h
+messagebox.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+messagebox.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+messagebox.o: ./gui/graphics.h ./gui/functions.h /usr/include/ctype.h
+messagebox.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+messagebox.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+uefstate.o: /usr/include/stdio.h /usr/include/features.h
+uefstate.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+uefstate.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+uefstate.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+uefstate.o: /usr/include/libio.h /usr/include/_G_config.h
+uefstate.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+uefstate.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+uefstate.o: /usr/include/bits/sys_errlist.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iostream
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ostream
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ios
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/iosfwd
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cctype
+uefstate.o: /usr/include/ctype.h /usr/include/endian.h
+uefstate.o: /usr/include/bits/endian.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stringfwd.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/postypes.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwchar
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstddef
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/ctime
+uefstate.o: /usr/include/time.h /usr/include/bits/time.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/functexcept.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception_defines.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/exception
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/char_traits.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstring
+uefstate.o: /usr/include/string.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algobase.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/climits
+uefstate.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+uefstate.o: /usr/include/bits/local_lim.h /usr/include/linux/limits.h
+uefstate.o: /usr/include/bits/posix2_lim.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdlib
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_pair.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/cpp_type_traits.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_types.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator_base_funcs.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/concept_check.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_iterator.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/debug/debug.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cstdio
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/localefwd.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ios_base.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/atomicity.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_classes.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/string
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/memory
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/allocator.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_construct.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/new
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_uninitialized.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_raw_storage_iter.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/limits
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_function.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/algorithm
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_algo.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_heap.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/stl_tempbuf.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_string.tcc
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/streambuf
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf.tcc
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/streambuf_iterator.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/cwctype
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/codecvt.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/basic_ios.tcc
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/ostream.tcc
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/locale
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/locale_facets.tcc
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/typeinfo
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/istream
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1/bits/istream.tcc
+uefstate.o: 6502core.h port.h beebwin.h /usr/include/stdlib.h
+uefstate.o: /usr/include/sys/types.h /usr/include/sys/select.h
+uefstate.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+uefstate.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+uefstate.o: /usr/include/alloca.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+uefstate.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h sdl.h
+uefstate.o: beebmem.h video.h via.h main.h beebsound.h disc8271.h
+uefstate.o: beebconfig.h messagebox.h ./gui/types.h ./gui/widget.h
+uefstate.o: ./gui/window.h ./gui/box.h ./gui/sdl.h ./gui/label.h
+uefstate.o: ./gui/button.h ./gui/widget_private.h progressdialog.h
+uefstate.o: /usr/include/pthread.h /usr/include/sched.h
+uefstate.o: /usr/include/bits/sched.h /usr/include/signal.h
+uefstate.o: /usr/include/bits/signum.h /usr/include/bits/siginfo.h
+uefstate.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+uefstate.o: /usr/include/asm/sigcontext.h /usr/include/asm-i386/sigcontext.h
+uefstate.o: /usr/include/bits/sigstack.h /usr/include/bits/sigthread.h
+uefstate.o: /usr/include/bits/setjmp.h ./gui/gui.h ./gui/tickbox.h
+uefstate.o: ./gui/radiogroup.h ./gui/radiobutton.h ./gui/slidebar.h
+uefstate.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+uefstate.o: ./gui/graphics.h ./gui/functions.h ./gui/line.h ./gui/log.h
+uefstate.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+uefstate.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h messages.h
+uefstate.o: sysvia.h
+listbox.o: button.h /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+listbox.o: /usr/include/stdio.h /usr/include/features.h
+listbox.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+listbox.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+listbox.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+listbox.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+listbox.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+listbox.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+listbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h main.h
+listbox.o: beebwin.h /usr/include/string.h /usr/include/stdlib.h
+listbox.o: /usr/include/sys/types.h /usr/include/time.h
+listbox.o: /usr/include/bits/time.h /usr/include/endian.h
+listbox.o: /usr/include/bits/endian.h /usr/include/sys/select.h
+listbox.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+listbox.o: /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h
+listbox.o: /usr/include/alloca.h port.h /usr/include/limits.h
+listbox.o: /usr/include/bits/posix1_lim.h /usr/include/bits/local_lim.h
+listbox.o: /usr/include/linux/limits.h /usr/include/bits/posix2_lim.h sdl.h
+listbox.o: ./gui/gui.h ./gui/types.h ./gui/window.h ./gui/widget.h
+listbox.o: ./gui/box.h ./gui/sdl.h ./gui/label.h ./gui/button.h
+listbox.o: ./gui/tickbox.h ./gui/radiogroup.h ./gui/radiobutton.h
+listbox.o: ./gui/slidebar.h ./gui/togglebutton.h ./gui/progressbar.h
+listbox.o: ./gui/image.h ./gui/graphics.h ./gui/functions.h
+listbox.o: /usr/include/ctype.h ./gui/line.h ./gui/log.h
+listbox.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+listbox.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+listbox.o: /usr/include/stdint.h listbox.h keyboard.h progressdialog.h
+listbox.o: /usr/include/pthread.h /usr/include/sched.h
+listbox.o: /usr/include/bits/sched.h /usr/include/signal.h
+listbox.o: /usr/include/bits/signum.h /usr/include/bits/siginfo.h
+listbox.o: /usr/include/bits/sigaction.h /usr/include/bits/sigcontext.h
+listbox.o: /usr/include/asm/sigcontext.h /usr/include/asm-i386/sigcontext.h
+listbox.o: /usr/include/bits/sigstack.h /usr/include/bits/sigthread.h
+listbox.o: /usr/include/bits/setjmp.h
+fileselector_saveas.o: /usr/include/string.h /usr/include/features.h
+fileselector_saveas.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+fileselector_saveas.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+fileselector_saveas.o: /usr/include/ctype.h /usr/include/bits/types.h
+fileselector_saveas.o: /usr/include/bits/typesizes.h /usr/include/endian.h
+fileselector_saveas.o: /usr/include/bits/endian.h /usr/include/stdlib.h
+fileselector_saveas.o: /usr/include/sys/types.h /usr/include/time.h
+fileselector_saveas.o: /usr/include/bits/time.h /usr/include/sys/select.h
+fileselector_saveas.o: /usr/include/bits/select.h /usr/include/bits/sigset.h
+fileselector_saveas.o: /usr/include/sys/sysmacros.h
+fileselector_saveas.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+fileselector_saveas.o: /usr/include/unistd.h /usr/include/bits/posix_opt.h
+fileselector_saveas.o: /usr/include/bits/confname.h /usr/include/getopt.h
+fileselector_saveas.o: /usr/include/stdint.h /usr/include/bits/wchar.h
+fileselector_saveas.o: /usr/include/stdio.h /usr/include/libio.h
+fileselector_saveas.o: /usr/include/_G_config.h /usr/include/wchar.h
+fileselector_saveas.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+fileselector_saveas.o: /usr/include/bits/sys_errlist.h ./gui/log.h
+fileselector_saveas.o: ./gui/line.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+fileselector_saveas.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+fileselector_saveas.o: sysvia.h via.h main.h beebwin.h port.h
+fileselector_saveas.o: /usr/include/limits.h /usr/include/bits/posix1_lim.h
+fileselector_saveas.o: /usr/include/bits/local_lim.h
+fileselector_saveas.o: /usr/include/linux/limits.h
+fileselector_saveas.o: /usr/include/bits/posix2_lim.h sdl.h disc8271.h
+fileselector_saveas.o: video.h beebconfig.h beebconfig_data.h beebem_pages.h
+fileselector_saveas.o: ./gui/gui.h ./gui/types.h ./gui/window.h
+fileselector_saveas.o: ./gui/widget.h ./gui/box.h ./gui/sdl.h ./gui/label.h
+fileselector_saveas.o: ./gui/button.h ./gui/tickbox.h ./gui/radiogroup.h
+fileselector_saveas.o: ./gui/radiobutton.h ./gui/slidebar.h
+fileselector_saveas.o: ./gui/togglebutton.h ./gui/progressbar.h ./gui/image.h
+fileselector_saveas.o: ./gui/graphics.h ./gui/functions.h
+fileselector_saveas.o: ./gui/graphics_colors.h ./gui/graphics_font.h
+fileselector_saveas.o: ./gui/graphics_font.h ./gui/graphics_fontmap.h
+fileselector_saveas.o: keyboard.h button.h 6502core.h screensaver.h

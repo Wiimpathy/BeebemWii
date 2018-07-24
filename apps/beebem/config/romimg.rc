@@ -1,0 +1,3 @@
+OS	os12
+ROM	basic	0xf
+ROM	acorn_dnfs	0xd

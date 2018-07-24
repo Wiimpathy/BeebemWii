@@ -1,0 +1,852 @@
+##arm-open2x-linux-
+#/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+#//opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1
+
+#INCLUDES = -I. -I/usr/local/open2x/include/c++
+#INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+INCLUDES = -I. -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/include/c++/4.1.1
+
+
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/usr/local/open2x/include/linux -I/usr/local/open2x/include/c++
+#DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/arm-open2x-linux/include/linux -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/c++/4.1.1
+DEPINCLUDES = $(INCLUDES) $(SDINCLUDES) -I/opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux
+
+
+#CC = open2x-gcc
+#CC = arm-open2x-linux-gcc
+CC = /opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/arm-open2x-linux-gcc
+
+#CFLAGS = -O6 $(INCLUDES) $(SDINCLUDES) -Wall -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops `arm-open2x-linux-sdl-config --cflags` -DDATA_DIR=\"/mnt/sd/beebem/\" -DEG_DEBUG -DWITH_DEBUG_OUTPUT
+CFLAGS = -O6 $(INCLUDES) $(SDINCLUDES) -Wall -mcpu=arm920 -mtune=arm920t -msoft-float -ffast-math -falign-functions=32 -finline-functions -funroll-all-loops `/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/sdl-config --cflags` -DDATA_DIR=\"/mnt/sd/beebem/\" -DEG_SLIDEBAR_ASTROFFONLY=1
+# -DEG_DEBUG -DWITH_DEBUG_OUTPUT
+
+
+#LINKFLAGS = -lstdc++ `sdl-open2x-config --libs` --static -s
+#LINKFLAGS = -lstdc++ `arm-open2x-linux-sdl-config --libs` --static -s
+LINKFLAGS = -lstdc++ `/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/sdl-config  --libs` --static -s
+
+SDINCLUDES = -I..
+SRCS = sdl.c functions.c log.c window.c widget.c widget_shared.c label.c button.c box.c tickbox.c togglebutton.c \
+	radiobutton.c radiogroup.c slidebar.c progressbar.c virtualzone.c graphics.c graphics_font.c \
+	graphics_font_iso_8859.c image.c skin.c
+
+OBJS = sdl.o functions.o log.o window.o widget.o widget_shared.o label.o button.o box.o tickbox.o togglebutton.o \
+	radiobutton.o radiogroup.o slidebar.o progressbar.o virtualzone.o graphics.o graphics_font.o \
+	graphics_font_iso_8859.o image.o skin.o
+
+.cc.o:
+	$(CC) -c $(CFLAGS) $<
+
+libeg.a: $(OBJS)
+	rm -f libeg.a
+	#arm-open2x-linux-ar rc libeg.a $(OBJS)
+	#/usr/local/open2x/bin/open2x-ar rc libeg.a $(OBJS)
+	/opt/open2x/gcc-4.1.1-glibc-2.3.6/bin/arm-open2x-linux-ar rc libeg.a $(OBJS)
+
+depend:
+	makedepend -- $(DEPINCLUDES) $(CFLAGS) $(LINKFLAGS) $(SDINCLUDES) -- $(SRCS)
+
+clean:
+	rm -f $(OBJS) libeg.a
+
+# DO NOT DELETE
+
+sdl.o: ../gui/sdl.h /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+sdl.o: /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h
+sdl.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+sdl.o: /usr/include/gnu/stubs-32.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+sdl.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+sdl.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+sdl.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+sdl.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+sdl.o: ../gui/types.h ../gui/line.h ../gui/log.h /usr/include/stdlib.h
+sdl.o: /usr/include/sys/types.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+sdl.o: /usr/include/sys/time.h /usr/include/bits/time.h
+sdl.o: /usr/include/sys/select.h /usr/include/bits/select.h
+sdl.o: /usr/include/bits/sigset.h /usr/include/endian.h
+sdl.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+sdl.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+sdl.o: /usr/include/string.h ../gui/graphics.h ../gui/functions.h
+sdl.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+sdl.o: ../gui/graphics_colors.h ../gui/graphics_font.h graphics_font.h
+sdl.o: graphics_fontmap.h
+functions.o: ../gui/functions.h /usr/include/stdio.h /usr/include/features.h
+functions.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+functions.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+functions.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+functions.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+functions.o: /usr/include/libio.h /usr/include/_G_config.h
+functions.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+functions.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+functions.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+functions.o: /usr/include/sys/types.h
+functions.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+functions.o: /usr/include/sys/time.h /usr/include/bits/time.h
+functions.o: /usr/include/sys/select.h /usr/include/bits/select.h
+functions.o: /usr/include/bits/sigset.h /usr/include/endian.h
+functions.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+functions.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+functions.o: /usr/include/string.h
+functions.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+functions.o: ../gui/types.h ../gui/line.h ../gui/log.h
+log.o: /usr/include/stdio.h /usr/include/features.h /usr/include/sys/cdefs.h
+log.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+log.o: /usr/include/gnu/stubs-32.h
+log.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+log.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+log.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+log.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+log.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+log.o: /usr/include/stdlib.h /usr/include/sys/types.h
+log.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+log.o: /usr/include/sys/time.h /usr/include/bits/time.h
+log.o: /usr/include/sys/select.h /usr/include/bits/select.h
+log.o: /usr/include/bits/sigset.h /usr/include/endian.h
+log.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+log.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+log.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/errno.h
+log.o: /usr/include/asm/errno.h /usr/include/asm-i386/errno.h
+log.o: /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h
+log.o: /usr/include/string.h ../gui/log.h ../gui/line.h
+window.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+window.o: /usr/include/features.h /usr/include/sys/cdefs.h
+window.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+window.o: /usr/include/gnu/stubs-32.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+window.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+window.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+window.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+window.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+window.o: /usr/include/stdlib.h /usr/include/sys/types.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+window.o: /usr/include/sys/time.h /usr/include/bits/time.h
+window.o: /usr/include/sys/select.h /usr/include/bits/select.h
+window.o: /usr/include/bits/sigset.h /usr/include/endian.h
+window.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+window.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+window.o: /usr/include/string.h ../gui/functions.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+window.o: ../gui/types.h ../gui/sdl.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+window.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+window.o: ../gui/window.h ../gui/widget.h ../gui/window_private.h
+window.o: ../gui/widget_private.h /usr/include/stdint.h
+widget.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+widget.o: /usr/include/features.h /usr/include/sys/cdefs.h
+widget.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+widget.o: /usr/include/gnu/stubs-32.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+widget.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+widget.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+widget.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+widget.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+widget.o: /usr/include/stdlib.h /usr/include/sys/types.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+widget.o: /usr/include/sys/time.h /usr/include/bits/time.h
+widget.o: /usr/include/sys/select.h /usr/include/bits/select.h
+widget.o: /usr/include/bits/sigset.h /usr/include/endian.h
+widget.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+widget.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+widget.o: /usr/include/string.h ../gui/functions.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+widget.o: ../gui/types.h ../gui/widget.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+widget.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+widget.o: ../gui/widget_private.h
+widget_shared.o: ../gui/widget_shared.h ../gui/types.h ../gui/log.h
+widget_shared.o: ../gui/line.h /usr/include/stdio.h /usr/include/features.h
+widget_shared.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+widget_shared.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+widget_shared.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+widget_shared.o: /usr/include/libio.h /usr/include/_G_config.h
+widget_shared.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+widget_shared.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+widget_shared.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+widget_shared.o: /usr/include/sys/types.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+widget_shared.o: /usr/include/sys/time.h /usr/include/bits/time.h
+widget_shared.o: /usr/include/sys/select.h /usr/include/bits/select.h
+widget_shared.o: /usr/include/bits/sigset.h /usr/include/endian.h
+widget_shared.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+widget_shared.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+widget_shared.o: /usr/include/string.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+widget_shared.o: ../gui/functions.h
+widget_shared.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+widget_shared.o: ../gui/widget.h ../gui/widget_private.h ../gui/window.h
+widget_shared.o: ../gui/window_private.h
+label.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+label.o: /usr/include/features.h /usr/include/sys/cdefs.h
+label.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+label.o: /usr/include/gnu/stubs-32.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+label.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+label.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+label.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+label.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+label.o: /usr/include/stdlib.h /usr/include/sys/types.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+label.o: /usr/include/sys/time.h /usr/include/bits/time.h
+label.o: /usr/include/sys/select.h /usr/include/bits/select.h
+label.o: /usr/include/bits/sigset.h /usr/include/endian.h
+label.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+label.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+label.o: /usr/include/string.h ../gui/sdl.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+label.o: ../gui/types.h ../gui/functions.h
+label.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+label.o: ../gui/label.h ../gui/window.h ../gui/widget.h
+label.o: ../gui/label_private.h ../gui/window_private.h
+label.o: ../gui/widget_shared.h ../gui/widget_private.h
+button.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+button.o: /usr/include/features.h /usr/include/sys/cdefs.h
+button.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+button.o: /usr/include/gnu/stubs-32.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+button.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+button.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+button.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+button.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+button.o: /usr/include/stdlib.h /usr/include/sys/types.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+button.o: /usr/include/sys/time.h /usr/include/bits/time.h
+button.o: /usr/include/sys/select.h /usr/include/bits/select.h
+button.o: /usr/include/bits/sigset.h /usr/include/endian.h
+button.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+button.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+button.o: /usr/include/string.h ../gui/functions.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+button.o: ../gui/types.h ../gui/button.h ../gui/sdl.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+button.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+button.o: ../gui/window.h ../gui/widget.h ../gui/button_private.h
+button.o: ../gui/window_private.h ../gui/widget_private.h
+button.o: ../gui/widget_shared.h ../gui/graphics.h ../gui/graphics_colors.h
+button.o: ../gui/graphics_font.h graphics_font.h graphics_fontmap.h
+box.o: ../gui/types.h ../gui/log.h ../gui/line.h /usr/include/stdio.h
+box.o: /usr/include/features.h /usr/include/sys/cdefs.h
+box.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+box.o: /usr/include/gnu/stubs-32.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+box.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+box.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+box.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+box.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+box.o: /usr/include/stdlib.h /usr/include/sys/types.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+box.o: /usr/include/sys/time.h /usr/include/bits/time.h
+box.o: /usr/include/sys/select.h /usr/include/bits/select.h
+box.o: /usr/include/bits/sigset.h /usr/include/endian.h
+box.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+box.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+box.o: /usr/include/string.h ../gui/functions.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+box.o: ../gui/box.h ../gui/sdl.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+box.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+box.o: ../gui/window.h ../gui/widget.h ../gui/box_private.h
+box.o: ../gui/widget_shared.h ../gui/widget_private.h ../gui/window_private.h
+box.o: ../gui/graphics.h ../gui/graphics_colors.h ../gui/graphics_font.h
+box.o: graphics_font.h graphics_fontmap.h
+tickbox.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+tickbox.o: /usr/include/features.h /usr/include/sys/cdefs.h
+tickbox.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+tickbox.o: /usr/include/gnu/stubs-32.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+tickbox.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+tickbox.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+tickbox.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+tickbox.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+tickbox.o: /usr/include/stdlib.h /usr/include/sys/types.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+tickbox.o: /usr/include/sys/time.h /usr/include/bits/time.h
+tickbox.o: /usr/include/sys/select.h /usr/include/bits/select.h
+tickbox.o: /usr/include/bits/sigset.h /usr/include/endian.h
+tickbox.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+tickbox.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+tickbox.o: /usr/include/string.h ../gui/functions.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+tickbox.o: ../gui/types.h ../gui/tickbox.h ../gui/sdl.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+tickbox.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+tickbox.o: ../gui/window.h ../gui/widget.h ../gui/tickbox_private.h
+tickbox.o: ../gui/radiogroup.h ../gui/radiogroup_private.h
+tickbox.o: ../gui/window_private.h ../gui/widget_private.h
+tickbox.o: ../gui/widget_shared.h ../gui/radiobutton.h ../gui/graphics.h
+tickbox.o: ../gui/graphics_colors.h ../gui/graphics_font.h graphics_font.h
+tickbox.o: graphics_fontmap.h
+togglebutton.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+togglebutton.o: /usr/include/features.h /usr/include/sys/cdefs.h
+togglebutton.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+togglebutton.o: /usr/include/gnu/stubs-32.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+togglebutton.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+togglebutton.o: /usr/include/libio.h /usr/include/_G_config.h
+togglebutton.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+togglebutton.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+togglebutton.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+togglebutton.o: /usr/include/sys/types.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+togglebutton.o: /usr/include/sys/time.h /usr/include/bits/time.h
+togglebutton.o: /usr/include/sys/select.h /usr/include/bits/select.h
+togglebutton.o: /usr/include/bits/sigset.h /usr/include/endian.h
+togglebutton.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+togglebutton.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+togglebutton.o: /usr/include/string.h ../gui/functions.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+togglebutton.o: ../gui/types.h ../gui/togglebutton.h ../gui/sdl.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+togglebutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+togglebutton.o: ../gui/window.h ../gui/widget.h ../gui/togglebutton_private.h
+togglebutton.o: ../gui/radiogroup.h ../gui/window_private.h
+togglebutton.o: ../gui/widget_private.h ../gui/widget_shared.h
+togglebutton.o: ../gui/graphics.h ../gui/graphics_colors.h
+togglebutton.o: ../gui/graphics_font.h graphics_font.h graphics_fontmap.h
+radiobutton.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+radiobutton.o: /usr/include/features.h /usr/include/sys/cdefs.h
+radiobutton.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+radiobutton.o: /usr/include/gnu/stubs-32.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+radiobutton.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+radiobutton.o: /usr/include/libio.h /usr/include/_G_config.h
+radiobutton.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+radiobutton.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+radiobutton.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+radiobutton.o: /usr/include/sys/types.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+radiobutton.o: /usr/include/sys/time.h /usr/include/bits/time.h
+radiobutton.o: /usr/include/sys/select.h /usr/include/bits/select.h
+radiobutton.o: /usr/include/bits/sigset.h /usr/include/endian.h
+radiobutton.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+radiobutton.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+radiobutton.o: /usr/include/string.h ../gui/functions.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+radiobutton.o: ../gui/types.h ../gui/radiobutton.h ../gui/sdl.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+radiobutton.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+radiobutton.o: ../gui/window.h ../gui/widget.h ../gui/tickbox.h
+radiobutton.o: ../gui/radiobutton_private.h ../gui/tickbox_private.h
+radiobutton.o: ../gui/window_private.h ../gui/widget_private.h
+radiogroup.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+radiogroup.o: /usr/include/features.h /usr/include/sys/cdefs.h
+radiogroup.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+radiogroup.o: /usr/include/gnu/stubs-32.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+radiogroup.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+radiogroup.o: /usr/include/libio.h /usr/include/_G_config.h
+radiogroup.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+radiogroup.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+radiogroup.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+radiogroup.o: /usr/include/sys/types.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+radiogroup.o: /usr/include/sys/time.h /usr/include/bits/time.h
+radiogroup.o: /usr/include/sys/select.h /usr/include/bits/select.h
+radiogroup.o: /usr/include/bits/sigset.h /usr/include/endian.h
+radiogroup.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+radiogroup.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+radiogroup.o: /usr/include/string.h ../gui/functions.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+radiogroup.o: ../gui/types.h ../gui/radiogroup.h ../gui/widget.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+radiogroup.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+radiogroup.o: ../gui/window.h ../gui/radiogroup_private.h
+radiogroup.o: ../gui/radiobutton.h ../gui/sdl.h ../gui/tickbox.h
+radiogroup.o: ../gui/radiobutton_private.h ../gui/tickbox_private.h
+radiogroup.o: ../gui/togglebutton.h ../gui/togglebutton_private.h
+radiogroup.o: ../gui/window_private.h ../gui/widget_private.h
+radiogroup.o: ../gui/widget_shared.h
+slidebar.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+slidebar.o: /usr/include/features.h /usr/include/sys/cdefs.h
+slidebar.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+slidebar.o: /usr/include/gnu/stubs-32.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+slidebar.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+slidebar.o: /usr/include/libio.h /usr/include/_G_config.h
+slidebar.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+slidebar.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+slidebar.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+slidebar.o: /usr/include/sys/types.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+slidebar.o: /usr/include/sys/time.h /usr/include/bits/time.h
+slidebar.o: /usr/include/sys/select.h /usr/include/bits/select.h
+slidebar.o: /usr/include/bits/sigset.h /usr/include/endian.h
+slidebar.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+slidebar.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+slidebar.o: /usr/include/string.h ../gui/functions.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+slidebar.o: ../gui/types.h ../gui/slidebar.h ../gui/widget.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+slidebar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+slidebar.o: ../gui/window.h ../gui/slidebar_private.h ../gui/window_private.h
+slidebar.o: ../gui/widget_private.h ../gui/widget_shared.h ../gui/sdl.h
+progressbar.o: ../gui/types.h ../gui/log.h ../gui/line.h /usr/include/stdio.h
+progressbar.o: /usr/include/features.h /usr/include/sys/cdefs.h
+progressbar.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+progressbar.o: /usr/include/gnu/stubs-32.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+progressbar.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+progressbar.o: /usr/include/libio.h /usr/include/_G_config.h
+progressbar.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+progressbar.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+progressbar.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+progressbar.o: /usr/include/sys/types.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+progressbar.o: /usr/include/sys/time.h /usr/include/bits/time.h
+progressbar.o: /usr/include/sys/select.h /usr/include/bits/select.h
+progressbar.o: /usr/include/bits/sigset.h /usr/include/endian.h
+progressbar.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+progressbar.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+progressbar.o: /usr/include/string.h ../gui/functions.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+progressbar.o: ../gui/progressbar.h ../gui/sdl.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+progressbar.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+progressbar.o: ../gui/window.h ../gui/widget.h ../gui/progressbar_private.h
+progressbar.o: ../gui/widget_shared.h ../gui/widget_private.h
+progressbar.o: ../gui/window_private.h
+virtualzone.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+virtualzone.o: /usr/include/features.h /usr/include/sys/cdefs.h
+virtualzone.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+virtualzone.o: /usr/include/gnu/stubs-32.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+virtualzone.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+virtualzone.o: /usr/include/libio.h /usr/include/_G_config.h
+virtualzone.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+virtualzone.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+virtualzone.o: /usr/include/bits/sys_errlist.h /usr/include/stdlib.h
+virtualzone.o: /usr/include/sys/types.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+virtualzone.o: /usr/include/sys/time.h /usr/include/bits/time.h
+virtualzone.o: /usr/include/sys/select.h /usr/include/bits/select.h
+virtualzone.o: /usr/include/bits/sigset.h /usr/include/endian.h
+virtualzone.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+virtualzone.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+virtualzone.o: /usr/include/string.h ../gui/functions.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+virtualzone.o: ../gui/types.h ../gui/virtualzone.h ../gui/sdl.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+virtualzone.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+virtualzone.o: ../gui/window.h ../gui/widget.h ../gui/virtualzone_private.h
+virtualzone.o: ../gui/window_private.h ../gui/widget_private.h
+virtualzone.o: ../gui/widget_shared.h
+graphics.o: ../gui/graphics.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+graphics.o: /usr/include/stdio.h /usr/include/features.h
+graphics.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+graphics.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+graphics.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+graphics.o: /usr/include/libio.h /usr/include/_G_config.h
+graphics.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+graphics.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+graphics.o: /usr/include/bits/sys_errlist.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+graphics.o: ../gui/types.h ../gui/functions.h /usr/include/stdlib.h
+graphics.o: /usr/include/sys/types.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+graphics.o: /usr/include/sys/time.h /usr/include/bits/time.h
+graphics.o: /usr/include/sys/select.h /usr/include/bits/select.h
+graphics.o: /usr/include/bits/sigset.h /usr/include/endian.h
+graphics.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+graphics.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+graphics.o: /usr/include/string.h
+graphics.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+graphics.o: ../gui/line.h ../gui/log.h ../gui/graphics_colors.h
+graphics.o: ../gui/graphics_font.h graphics_font.h graphics_fontmap.h
+graphics.o: ../gui/sdl.h ../gui/graphics_font_iso_8869.h
+graphics.o: ../gui/graphics_fontmap.h
+graphics_font.o: /usr/include/stdio.h /usr/include/features.h
+graphics_font.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+graphics_font.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+graphics_font.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+graphics_font.o: /usr/include/libio.h /usr/include/_G_config.h
+graphics_font.o: /usr/include/wchar.h /usr/include/bits/wchar.h
+graphics_font.o: /usr/include/gconv.h /usr/include/bits/stdio_lim.h
+graphics_font.o: /usr/include/bits/sys_errlist.h /usr/include/string.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+graphics_font.o: ../gui/graphics_font.h graphics_font.h graphics_fontmap.h
+graphics_font.o: ../gui/functions.h /usr/include/stdlib.h
+graphics_font.o: /usr/include/sys/types.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+graphics_font.o: /usr/include/sys/time.h /usr/include/bits/time.h
+graphics_font.o: /usr/include/sys/select.h /usr/include/bits/select.h
+graphics_font.o: /usr/include/bits/sigset.h /usr/include/endian.h
+graphics_font.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+graphics_font.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+graphics_font.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+graphics_font.o: ../gui/types.h ../gui/line.h ../gui/log.h ../gui/graphics.h
+graphics_font.o: ../gui/graphics_colors.h
+graphics_font_iso_8859.o: ../gui/graphics_fontmap.h
+image.o: ../gui/log.h ../gui/line.h /usr/include/stdio.h
+image.o: /usr/include/features.h /usr/include/sys/cdefs.h
+image.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h
+image.o: /usr/include/gnu/stubs-32.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/stddef.h
+image.o: /usr/include/bits/types.h /usr/include/bits/typesizes.h
+image.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
+image.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+image.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+image.o: /usr/include/stdlib.h /usr/include/sys/types.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/time.h
+image.o: /usr/include/sys/time.h /usr/include/bits/time.h
+image.o: /usr/include/sys/select.h /usr/include/bits/select.h
+image.o: /usr/include/bits/sigset.h /usr/include/endian.h
+image.o: /usr/include/bits/endian.h /usr/include/sys/sysmacros.h
+image.o: /usr/include/bits/pthreadtypes.h /usr/include/alloca.h
+image.o: /usr/include/string.h ../gui/sdl.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_main.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_types.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_getenv.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_error.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/begin_code.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/close_code.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_rwops.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_timer.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_audio.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_byteorder.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_cdrom.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_joystick.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_events.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_active.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keyboard.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_keysym.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mouse.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_video.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_mutex.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_quit.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/include/SDL/SDL_version.h
+image.o: ../gui/types.h ../gui/graphics.h ../gui/functions.h
+image.o: /opt/open2x/gcc-4.1.1-glibc-2.3.6/arm-open2x-linux/include/linux/ctype.h
+image.o: ../gui/graphics_colors.h ../gui/graphics_font.h graphics_font.h
+image.o: graphics_fontmap.h ../gui/image.h ../gui/window.h ../gui/widget.h
+image.o: ../gui/image_private.h ../gui/window_private.h
+image.o: ../gui/widget_shared.h ../gui/widget_private.h

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+ <app version="1">
+   <name>BeebemWii</name>
+   <coder>Wiimpathy</coder>
+   <version>0.1</version>
+   <release_date>20180724</release_date>
+   <short_description>BBC Micro emulator</short_description>
+   <long_description>This is a port of Beebem gp2x(0.6-1), a BBC micro emulator.
+Here are the menu controls and special buttons used in-game.
+
+ Wiimote:
+
+ A      : Confirm
+ B      : Back
+ +      : Open virtual keyboard
+ Home   : Open main menu
+
+ Classic controller:
+
+ A      : Confirm
+ B      : Back
+ +      : Open virtual keyboard
+ Home   : Open main menu
+
+ GameCube controller:
+
+ A      : Confirm
+ B      : Back
+ R      : Open virtual keyboard
+ Start  : Open main menu
+
+Some Wii buttons are mapped to BBC Micro's keys by default. You can configure the buttons for each game.
+See the Readme/manual for more information.
+</long_description>
+<no_ios_reload/>
+ </app>
+

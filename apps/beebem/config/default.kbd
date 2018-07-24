@@ -1,0 +1,113 @@
+# default.kbd
+#
+# This is the default configuration file that BeebEm loads before any matching
+# .kbd file. This file is intended to set defaults between loading disc images.
+
+
+# Video emulation (both Graphics modes and Teletext):
+# ---------------------------------------------------
+
+# GP2x is normal way up (as you'd expect).
+SET ORIENTATION=NORMAL
+
+# GP2x is up-side down (thus the buttons Y, A, B & X become a D-Pad):
+#SET ORIENTATION=FLIPPED
+
+# Video emulation, TOP = scanlines 0-240, BOTTOM = scanlines 16-255,
+# CENTER (or CENTRE) = scanlines 8-248, SCALED = Beeb's 256 scanlines are
+# scaled to the GP2x's 240 scanlines (deletes every 16th scanline):
+SET VSCALE=SCALED
+#SET VSCALE=TOP
+#SET VSCALE=BOTTOM
+#SET VSCALE=CENTER
+
+# GP2x stick uses smart mode by default:
+SET STICK=SMART
+
+# VSYNC offset (you probably don't need to change this):
+SET VSYNCOFFSET=NORMAL
+# #SET VSYNCOFFSET=NUDGE
+
+# Wii 240p mode
+SET 240p=NO
+
+# Bilinear filter
+SET ENABLE_FILTER=NO
+
+
+# Sound:
+# ------
+
+# 0 = disable, 1 = enable. When enabled, sound is better it drops less samples,
+# but it adds a delay. 
+SET LATENCY=0
+
+# Set the volume to 100%:
+SET VOLUME=255
+
+# Set the volume to 0% (no sound at startup):
+# Steps are : 0,25,50,100,etc.
+#SET VOLUME=0
+
+
+# 8271 floppy discs:
+# ------------------
+
+# RO = Read Only, RW=Read Write.
+
+# First floppy drive (0):
+SET FD0_TAB=RO
+#SET FD0_TAB=RW
+
+# Second floppy drive (1):
+SET FD1_TAB=RO
+#SET FD1_TAB=RW
+
+# Disable the hardware cursor always: '1', 'YES', 'TRUE', 'Y' equals a positive,
+# everything else is considered a negative:
+SET DISABLE_CURSOR=NO
+#SET DISABLE_CURSOR=YES
+
+# Default keys:
+# -------------
+
+# Default keys:
+# -------------
+
+# NOTHING = key is not mapped.
+
+# Player 1:
+P1_LEFT=BBC_Z
+P1_RIGHT=BBC_X
+P1_UP=BBC_:
+P1_DOWN=BBC_/
+P1_A=BBC_RETURN
+P1_B=BBC_SPACE
+P1_X=BBC_SPACE
+P1_Y=BBC_RETURN
+P1_MINUS=BBC_ESCAPE
+P1_CLASSIC_A=BBC_RETURN
+P1_CLASSIC_B=BBC_SPACE
+P1_CLASSIC_X=BBC_SPACE
+P1_CLASSIC_Y=BBC_RETURN
+P1_CLASSIC_L=BBC_ESCAPE
+P1_CLASSIC_R=BBC_1
+
+# Player 2:
+P2_LEFT=BBC_PERIOD
+P2_RIGHT=BBC_FORWARDSLASH
+P2_UP=BBC_LEFTSBRACKET
+P2_DOWN=BBC_ASTERIX
+P2_A=SPACE
+P2_B=UNKNOWN
+P2_X=BBC_UNDERSCORE
+P2_Y=y
+P2_MINUS=x
+P2_CLASSIC_A=SPACE
+P2_CLASSIC_B=UNKNOWN
+P2_CLASSIC_X=n
+P2_CLASSIC_Y=y
+P2_CLASSIC_L=QUOTE
+P2_CLASSIC_R=SLASH
+
+
